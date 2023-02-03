@@ -15,6 +15,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import javax.swing.text.html.ImageView;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,6 +23,8 @@ import java.util.ResourceBundle;
 public class LogInController implements Initializable {
     @FXML
     private Button exitButton;
+    @FXML
+    private ImageView imageView;
     @FXML private PasswordField passwordField;
     @FXML private TextField userId;
     private AppModel model;
@@ -44,7 +47,7 @@ public class LogInController implements Initializable {
             Parent root = loader.load();
             Stage stage = new Stage();
             stage.setScene(new Scene(root));
-            stage.setTitle("Movie Recommendation System 0.01 Beta");
+            stage.setTitle("Movie Recommendation System");
             stage.show();
             AppController controller = loader.getController();
 

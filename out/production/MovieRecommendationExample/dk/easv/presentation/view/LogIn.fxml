@@ -5,6 +5,8 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -17,12 +19,12 @@
                <children>
                   <TextField fx:id="userId" promptText="Username" stylesheets="@css/loginStyle.css">
                      <VBox.margin>
-                        <Insets left="90.0" right="40.0" top="50.0" />
+                        <Insets left="90.0" right="40.0" top="120.0" />
                      </VBox.margin>
                   </TextField>
                   <PasswordField fx:id="passwordField" promptText="Password" stylesheets="@css/loginStyle.css">
                      <VBox.margin>
-                        <Insets left="90.0" right="40.0" top="50.0" />
+                        <Insets left="90.0" right="40.0" top="30.0" />
                      </VBox.margin>
                   </PasswordField>
                   <Button mnemonicParsing="false" onAction="#logIn" stylesheets="@css/loginStyle.css" text="LOGIN ">
@@ -44,6 +46,11 @@
                   <Font size="18.0" />
                </font>
             </Button>
+            <ImageView fitHeight="185.0" fitWidth="189.0" layoutX="58.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/user.png" />
+               </image>
+            </ImageView>
          </children></AnchorPane>
    </children>
 </AnchorPane>
