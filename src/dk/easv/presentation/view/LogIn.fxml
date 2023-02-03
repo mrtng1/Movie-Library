@@ -11,15 +11,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.presentation.controller.LogInController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="850.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.presentation.controller.LogInController">
    <children>
-      <AnchorPane layoutX="311.0" layoutY="113.0" prefHeight="300.0" prefWidth="450.0" style="-fx-background-color: #F7F9F9#F7F9F9;">
+      <AnchorPane layoutX="322.0" layoutY="120.0" prefHeight="300.0" prefWidth="450.0" style="-fx-background-color: #F7F9F9#F7F9F9;">
          <children>
             <VBox layoutX="141.0" prefHeight="200.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <TextField fx:id="userId" promptText="Username" stylesheets="@css/loginStyle.css">
                      <VBox.margin>
-                        <Insets left="90.0" right="40.0" top="100.0" />
+                        <Insets left="100.0" right="40.0" top="100.0" />
                      </VBox.margin>
                      <font>
                         <Font name="Futura Medium" size="13.0" />
@@ -27,7 +27,7 @@
                   </TextField>
                   <PasswordField fx:id="passwordField" promptText="Password" stylesheets="@css/loginStyle.css">
                      <VBox.margin>
-                        <Insets left="90.0" right="40.0" top="30.0" />
+                        <Insets left="100.0" right="40.0" top="30.0" />
                      </VBox.margin>
                      <font>
                         <Font name="Futura Medium" size="13.0" />
@@ -45,20 +45,20 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="69.0" layoutY="75.0" prefHeight="375.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(#AED9F7, #4D7DAF); -fx-background-radius: 30;">
+      <AnchorPane layoutX="82.0" layoutY="74.0" prefHeight="375.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(#AED9F7, #4D7DAF); -fx-background-radius: 30;">
          <effect>
             <DropShadow height="22.5" offsetX="4.0" radius="15.125" width="40.0" />
          </effect>
          <children>
-            <Button fx:id="exitButton" layoutX="250.0" layoutY="14.0" mnemonicParsing="false" prefWidth="29.0" style="-fx-background-color: transparent;" text="X" textFill="#f7f9f9">
+            <Button fx:id="exitButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefWidth="29.0" style="-fx-background-color: transparent;" text="x" textFill="#f7f9f9">
                <font>
                   <Font name="Futura Medium" size="18.0" />
                </font>
                <effect>
-                  <DropShadow />
+                  <DropShadow height="30.0" radius="14.5" width="30.0" />
                </effect>
             </Button>
-            <ImageView fitHeight="185.0" fitWidth="189.0" layoutX="58.0" layoutY="95.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="180.0" fitWidth="180.0" layoutX="63.0" layoutY="99.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@images/loginIcon.png" />
                </image>
