@@ -18,16 +18,12 @@
     -fx-border-style: solid;
 }
 
-.button:hover {
-    -fx-background-color: #0077C9;
-    -fx-text-fill:white;
-    -fx-font-weight:bold;
-}
-
 .button {
     -fx-background-color: #F7F9F9;
 }
 
-.anchorPane{
-    -fx-background-color: linear-gradient(#4D7DAF, #AED9F7);
+.button:hover{
+    -fx-background-color: #f41165;
+    -fx-text-fill:white;
+    -fx-font-weight:bold;
 }
