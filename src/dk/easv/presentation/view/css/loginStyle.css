@@ -1,0 +1,29 @@
+.text-field {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);
+    -fx-border-color: -fx-box-border;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-style: solid;
+}
+
+.password-field {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-prompt-text-fill: derive(-fx-control-inner-background,-30%);
+    -fx-border-color: -fx-box-border;
+    -fx-border-width: 0 0 1 0;
+    -fx-border-style: solid;
+}
+
+.button:hover {
+    -fx-background-color: #0077C9;
+    -fx-text-fill:white;
+    -fx-font-weight:bold;
+}
+
+.button {
+    -fx-background-color: #F7F9F9;
+}

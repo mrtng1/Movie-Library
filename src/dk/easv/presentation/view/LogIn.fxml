@@ -1,45 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<BorderPane xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.presentation.controller.LogInController">
-   <center>
-      <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="256.0" prefWidth="454.0">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.presentation.controller.LogInController">
+   <children>
+      <AnchorPane layoutX="311.0" layoutY="113.0" prefHeight="300.0" prefWidth="450.0" style="-fx-background-color: #F7F9F9#F7F9F9;">
          <children>
-            <GridPane layoutX="104.0" layoutY="49.0" prefHeight="110.0" prefWidth="245.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
+            <VBox layoutX="141.0" prefHeight="200.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <PasswordField disable="true" fx:id="passwordField" GridPane.rowIndex="1" />
-                  <TextField fx:id="userId" text="Georgi Facello" />
+                  <TextField fx:id="userId" promptText="Username" stylesheets="@css/loginStyle.css">
+                     <VBox.margin>
+                        <Insets left="90.0" right="40.0" top="50.0" />
+                     </VBox.margin>
+                  </TextField>
+                  <PasswordField fx:id="passwordField" promptText="Password" stylesheets="@css/loginStyle.css">
+                     <VBox.margin>
+                        <Insets left="90.0" right="40.0" top="50.0" />
+                     </VBox.margin>
+                  </PasswordField>
+                  <Button mnemonicParsing="false" onAction="#logIn" stylesheets="@css/loginStyle.css" text="LOGIN ">
+                     <VBox.margin>
+                        <Insets left="220.0" top="50.0" />
+                     </VBox.margin>
+                  </Button>
                </children>
-            </GridPane>
-            <GridPane layoutX="160.0" layoutY="159.0" prefHeight="30.0" prefWidth="133.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <Button mnemonicParsing="false" onAction="#logIn" text="log - in" />
-                  <Button mnemonicParsing="false" onAction="#signUp" text="Sig - Up" GridPane.columnIndex="1" />
-               </children>
-            </GridPane>
+            </VBox>
          </children>
       </AnchorPane>
-   </center>
-</BorderPane>
+      <AnchorPane layoutX="69.0" layoutY="75.0" prefHeight="375.0" prefWidth="300.0" style="-fx-background-color: #0A2E5D#0A2E5D; -fx-background-radius: 30;">
+         <effect>
+            <DropShadow height="5.0" offsetX="4.0" radius="10.75" width="40.0" />
+         </effect>
+         <children>
+            <Button fx:id="exitButton" layoutX="250.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: transparent;" text="X" textFill="#f7f9f9">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
+         </children></AnchorPane>
+   </children>
+</AnchorPane>
