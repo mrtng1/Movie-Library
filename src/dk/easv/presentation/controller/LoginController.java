@@ -1,7 +1,6 @@
 package dk.easv.presentation.controller;
 
 import dk.easv.presentation.model.AppModel;
-import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,34 +12,19 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
-    @FXML
-    private AnchorPane loginPane;
     @FXML private PasswordField passwordField;
     @FXML private TextField userId;
     @FXML
     private Button exitButton;
     private AppModel model;
-
-    @FXML
-    private void makeAnimation() {
-        TranslateTransition animation = new TranslateTransition();
-        animation.setNode(loginPane);
-        animation.setDuration(Duration.millis(200));
-        animation.setByX(50);
-        animation.setByY(-50);
-        animation.play();
-    }
 
     public void logIn(ActionEvent actionEvent) {
         model.loadUsers();
@@ -57,7 +41,7 @@ public class LoginController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
 
-                AppController controller = loader.getController();
+                MainController controller = loader.getController();
                 controller.setModel(model);
 
             } catch (IOException e) {
