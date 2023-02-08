@@ -35,13 +35,12 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("presentation/view/LogIn.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("presentation/view/loginWindow.fxml"));
 
         Scene scene = new Scene(root);
         scene.setFill(Color.TRANSPARENT);
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         primaryStage.getIcons().add(new Image("dk/easv/presentation/view/images/loginIcon.png"));
-
 
         movableWindow(scene, primaryStage);
 
