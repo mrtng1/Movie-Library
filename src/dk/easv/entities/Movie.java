@@ -56,8 +56,7 @@ public class Movie {
 
     @Override
     public String toString() {
-        return  title + ", " + year +
-                ", ratings=" + ratings.size() +
-                ", avg="+ Math.round(getAverageRating()*10)/10.0;
+        return  title + "";
+                //+ year +", ratings=" + ratings.size() +", avg="+ Math.round(getAverageRating()*10)/10.0;
     }
 }

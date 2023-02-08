@@ -46,7 +46,7 @@ public class TopMovie {
 
     @Override
     public String toString() {
-        return movie +
-                ", rating=" + rawRatings;
+        return movie + "";
+                //+ ", rating=" + rawRatings;
     }
 }
