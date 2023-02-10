@@ -26,24 +26,25 @@ public class LoginController implements Initializable {
     private Button exitButton;
     private AppModel model;
 
-    public void logIn(ActionEvent actionEvent) {
+    public void login() {
         model.loadUsers();
         model.loginUserFromUsername(userId.getText());
         if (model.getObsLoggedInUser() != null) {
 
             try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/presentation/view/App.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/presentation/view/mainWindow.fxml"));
                 Parent root = loader.load();
                 Stage stage = new Stage();
                 Scene scene = new Scene(root);
-                scene.setFill(Color.TRANSPARENT);
-                stage.initStyle(StageStyle.TRANSPARENT);
+                //scene.setFill(Color.TRANSPARENT);
+                //stage.initStyle(StageStyle.TRANSPARENT);
                 stage.setScene(scene);
                 stage.show();
 
                 MainController controller = loader.getController();
-                controller.setModel(model);
 
+                controller.setUsername(userId.getText());
+                controller.setModel(model);
             } catch (IOException e) {
                 e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load App.fxml");

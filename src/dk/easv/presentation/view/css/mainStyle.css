@@ -8,5 +8,4 @@
 .scroll-pane .scroll-bar:horizontal .thumb
 {
     -fx-background-color: transparent;
-    -fx-background-radius: transparent;
 }
