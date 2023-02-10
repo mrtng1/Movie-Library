@@ -1,26 +1,13 @@
 package dk.easv.presentation.model;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import dk.easv.entities.*;
-import dk.easv.entities.api.Result;
-import dk.easv.entities.api.TMDB;
 import dk.easv.logic.LogicManager;
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.List;
 
-public class AppModel {
+public class MainModel {
 
     LogicManager logic = new LogicManager();
     // Models of the data in the view

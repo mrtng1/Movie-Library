@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dk.easv.entities.*;
 import dk.easv.entities.api.Result;
-import dk.easv.presentation.model.AppModel;
+import dk.easv.presentation.model.MainModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -29,7 +29,7 @@ public class MainController implements Initializable {
     private HBox hb;
     @FXML
     private ImageView imgPoster;
-    private AppModel model;
+    private MainModel model;
     private String username;
     private long timerStartMillis = 0;
     private String timerMsg = " ";
@@ -41,7 +41,7 @@ public class MainController implements Initializable {
         nameLabel.setText(username);
     }
 
-    public void setModel(AppModel model) {
+    public void setModel(MainModel model) {
         this.model = model;
 
         // Loading users...
