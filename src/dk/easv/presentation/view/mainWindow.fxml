@@ -15,7 +15,7 @@
    <left>
       <Pane prefHeight="697.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(#AED9F7, #4D7DAF);" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="nameLabel" alignment="CENTER" layoutX="16.0" layoutY="84.0" opacity="0.7" prefHeight="17.0" prefWidth="169.0" text="uknown user" textFill="WHITE">
+            <Label fx:id="nameLabel" alignment="CENTER" layoutX="-4.0" layoutY="679.0" opacity="0.7" prefHeight="27.0" prefWidth="209.0" text="uknown user">
                <font>
                   <Font size="18.0" />
                </font>
@@ -29,6 +29,19 @@
                <VBox.margin>
                   <Insets bottom="20.0" top="20.0" />
                </VBox.margin>
+               <children>
+                  <Label fx:id="welcomeLabel" prefHeight="55.0" prefWidth="456.0" text="Welcome, user ">
+                     <padding>
+                        <Insets top="10.0" />
+                     </padding>
+                     <font>
+                        <Font name="System Bold" size="29.0" />
+                     </font>
+                     <FlowPane.margin>
+                        <Insets left="40.0" />
+                     </FlowPane.margin>
+                  </Label>
+               </children>
             </FlowPane>
             <Separator prefWidth="200.0">
                <VBox.margin>
