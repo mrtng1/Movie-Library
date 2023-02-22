@@ -6,11 +6,14 @@ import dk.easv.entities.*;
 import dk.easv.entities.api.Result;
 import dk.easv.presentation.model.MainModel;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import dk.easv.entities.api.TMDB;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import java.io.BufferedReader;
@@ -25,11 +28,9 @@ import java.util.*;
 
 public class MainController implements Initializable {
     @FXML
-    private BorderPane rootLayout;
+    private HBox hb;
     @FXML
     private Label nameLabel;
-    @FXML
-    private HBox hb;
     @FXML
     private ImageView imgPoster;
     private MainModel model;
@@ -72,7 +73,6 @@ public class MainController implements Initializable {
                 if (colonIndex != -1) { // If ":" is found in the string
                     query = query.substring(0, colonIndex).trim(); // Remove text after last ":"
                 }
-
                 String encodedQuery = URLEncoder.encode(query, "UTF-8");
 
                 String apiKey="46e91ce5acfdab6d23d26f340d638a2d";
@@ -108,11 +108,20 @@ public class MainController implements Initializable {
                     else {
                         Result r = results.isEmpty() ? new Result() : results.get(0);
 
+                        /*
                         if (imgPoster!=null) {
                             imgPoster.imageProperty().setValue(new Image(imagePath + r.getPoster_path()));
                         }
-
+                         */
                         System.out.println(imagePath + r.getPoster_path());
+
+
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/presentation/view/card.fxml"));
+                        AnchorPane root = loader.load();
+                        AnchorPane ap = new AnchorPane();
+                        ap.getChildren().add(new ImageView(imagePath + r.getPoster_path()));
+
+                        hb.getChildren().add(root);
                     }
                 }
                 conn.disconnect();
