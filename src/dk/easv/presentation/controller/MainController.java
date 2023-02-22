@@ -68,9 +68,9 @@ public class MainController implements Initializable {
 
             try {
                 String query = movieTitle.getTitle();
-                int colonIndex = query.indexOf(":");
+                int colonIndex = query.lastIndexOf(":");
                 if (colonIndex != -1) { // If ":" is found in the string
-                    query = query.substring(0, colonIndex).trim(); // Remove text after ":"
+                    query = query.substring(0, colonIndex).trim(); // Remove text after last ":"
                 }
 
                 String encodedQuery = URLEncoder.encode(query, "UTF-8");
