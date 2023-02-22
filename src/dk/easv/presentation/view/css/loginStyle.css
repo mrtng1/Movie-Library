@@ -24,6 +24,7 @@
 
 .button:hover{
     -fx-background-color: #f41165;
+    -fx-font-family: Futura;
     -fx-text-fill:white;
     -fx-font-weight:bold;
 }

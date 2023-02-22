@@ -28,6 +28,14 @@ public class MainModel {
         return logic.getTopMoviesFromSimilarPeople(u);
     }
 
+    public List<Movie> getTopAverageRatedMoviesUserDidNotSee(User u) {
+        return logic.getTopAverageRatedMoviesUserDidNotSee(u);
+    }
+
+    public List<Movie> getTopAverageRatedMovies(User u) {
+        return logic.getTopAverageRatedMovies(u);
+    }
+
     public void loadData(User user) {
         obsTopMovieSeen.clear();
         obsTopMovieSeen.addAll(logic.getTopAverageRatedMovies(user));
