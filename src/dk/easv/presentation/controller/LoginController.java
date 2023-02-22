@@ -43,6 +43,9 @@ public class LoginController implements Initializable {
                 controller.setUsername(userId.getText());
                 controller.setModel(model);
 
+                Stage currentStage = (Stage) userId.getScene().getWindow();
+                currentStage.close();
+
             } catch (IOException e) {
                 e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load App.fxml");

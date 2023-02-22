@@ -20,6 +20,7 @@ import java.io.Reader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.*;
 
 public class MainController implements Initializable {
@@ -67,12 +68,13 @@ public class MainController implements Initializable {
 
             try {
                 String query = movieTitle.getTitle();
+                String encodedQuery = URLEncoder.encode(query, "UTF-8");
 
                 String apiKey="46e91ce5acfdab6d23d26f340d638a2d";
                 String imagePath="https://image.tmdb.org/t/p/w400/";
                 String uri =
                         "https://api.themoviedb.org/3/search/movie?api_key=" + apiKey +
-                                "&language=en-US&query=" + query +
+                                "&language=en-US&query=" + encodedQuery +
                                 "&page=1&include_adult=true";
 
                 URL url = new URL(uri);
