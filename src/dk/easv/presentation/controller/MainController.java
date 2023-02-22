@@ -8,13 +8,11 @@ import dk.easv.presentation.model.MainModel;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import dk.easv.entities.api.TMDB;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -28,11 +26,10 @@ import java.util.*;
 
 public class MainController implements Initializable {
     @FXML
-    private HBox hb;
+    private HBox hbTopSimilar;
     @FXML
     private Label nameLabel;
-    @FXML
-    private ImageView imgPoster;
+
     private MainModel model;
     private String username;
     private long timerStartMillis = 0;
@@ -59,7 +56,7 @@ public class MainController implements Initializable {
     public void loopMovies() {
         List<TopMovie> movieTitles = model.getTopMoviesFromSimilarPeople(user);
 
-        int limit = 10;
+        int limit = 15;
         int counter = 0;
 
         for (TopMovie movieTitle : movieTitles) {
@@ -108,20 +105,14 @@ public class MainController implements Initializable {
                     else {
                         Result r = results.isEmpty() ? new Result() : results.get(0);
 
-                        /*
-                        if (imgPoster!=null) {
-                            imgPoster.imageProperty().setValue(new Image(imagePath + r.getPoster_path()));
-                        }
-                         */
-                        System.out.println(imagePath + r.getPoster_path());
-
-
+                        // Loading movie cards
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/presentation/view/card.fxml"));
                         AnchorPane root = loader.load();
-                        AnchorPane ap = new AnchorPane();
-                        ap.getChildren().add(new ImageView(imagePath + r.getPoster_path()));
 
-                        hb.getChildren().add(root);
+                        ImageView imgPoster = (ImageView) (root.getChildren().get(0));
+                        imgPoster.setImage(new Image(imagePath + r.getPoster_path()));
+
+                        hbTopSimilar.getChildren().add(root);
                     }
                 }
                 conn.disconnect();
@@ -134,7 +125,6 @@ public class MainController implements Initializable {
 
                 e.printStackTrace();
             }
-
             //System.out.println(movieTitle.getTitle());
             counter++;
         }
