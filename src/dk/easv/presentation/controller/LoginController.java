@@ -10,18 +10,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
-    @FXML private PasswordField passwordField;
     @FXML private TextField userId;
     @FXML
     private Button exitButton;
@@ -66,6 +63,7 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         model = new MainModel();
-        exitButton.setOnAction(event -> {Platform.exit();});
+
+        exitButton.setOnAction(event -> Platform.exit());
     }
 }
