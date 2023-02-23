@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -22,14 +23,15 @@ public class LoginController implements Initializable {
     @FXML private TextField userId;
     @FXML
     private Button exitButton;
+    @FXML private Label loadLabel;
     private MainModel model;
 
     public void login() {
+
         model.loadUsers();
         model.loginUserFromUsername(userId.getText());
 
         if (model.getObsLoggedInUser() != null) {
-
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/presentation/view/mainWindow.fxml"));
                 Parent root = loader.load();

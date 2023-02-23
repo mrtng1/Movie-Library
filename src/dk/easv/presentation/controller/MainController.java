@@ -2,6 +2,7 @@ package dk.easv.presentation.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import io.github.palexdev.materialfx.controls.MFXProgressSpinner;
 import dk.easv.Main;
 import dk.easv.entities.*;
 import dk.easv.entities.api.Result;
@@ -30,10 +31,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.*;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
+import java.util.concurrent.*;
 
 public class MainController implements Initializable {
     @FXML
@@ -41,7 +39,8 @@ public class MainController implements Initializable {
     @FXML
     private HBox hbTopMoviesFromSimilarPeople, hbTopAverageRatedMoviesUserDidNotSee, hbTopAverageRatedMovies;
     @FXML
-    private Label nameLabel, welcomeLabel;
+    private Label nameLabel, welcomeLabel, loadLabel;
+    @FXML private MFXProgressSpinner loadSpinner;
     @FXML
     private Button logOut;
     private MainModel model;
@@ -67,6 +66,7 @@ public class MainController implements Initializable {
         welcomeLabel.setText(getFirstName(greetings.get(rand.nextInt(greetings.toArray().length))+username));
     }
 
+
     public void setModel(MainModel model) {
         this.model = model;
 
@@ -76,12 +76,47 @@ public class MainController implements Initializable {
         // Loading movies
         startTimer("Loading movies");
 
-        getTopMoviesFromSimilarPeople();
-        getTopAverageRatedMoviesUserDidNotSee();
-        getTopAverageRatedMovies();
+
+
+        Thread tLoading = new Thread(() -> {
+            loadLabel.setVisible(true);
+            loadSpinner.setVisible(true);
+        });
+
+
+        Thread t1 = new Thread(() -> {
+            getTopMoviesFromSimilarPeople();
+        });
+        Thread t2 = new Thread(() -> {
+            getTopAverageRatedMoviesUserDidNotSee();
+        });
+        Thread t3 = new Thread(() -> {
+            getTopAverageRatedMovies();
+        });
+
+        Thread tLoadingEnd = new Thread(() -> {
+            synchronized (this) {
+                try {
+                    wait(3000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+                loadLabel.setVisible(false);
+                loadSpinner.setVisible(false);
+            }
+        });
+
+        tLoading.start();
+        t1.start();
+        t2.start();
+        t3.start();
+
+
         stopTimer();
 
+
         setLogOut();
+        tLoadingEnd.start();
     }
 
     public void getTopMoviesFromSimilarPeople() {
