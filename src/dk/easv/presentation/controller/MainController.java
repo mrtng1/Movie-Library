@@ -38,22 +38,21 @@ public class MainController implements Initializable {
     private long timerStartMillis = 0;
     private String timerMsg = " ";
 
-    private static String getFirstName(String fullName) {
-        int index = fullName.lastIndexOf(" ");
+    private static String getFirstName(String name) {
+        int index = name.lastIndexOf(" ");
         if (index > -1) {
-            return fullName.substring(0, index);
+            return name.substring(0, index);
         }
-        return fullName;
+        return name;
     }
 
 
     public void setUsername(String username) {
-        List<String> greetings = Arrays.asList("Welcome, ", "Hey, ", "Hello, ");
+        List<String> greetings = Arrays.asList("Welcome, ", "Welcome back, ", "Hey, ", "Hello, ");
         this.username = username;
         nameLabel.setText(username);
-        welcomeLabel.setText(getFirstName("Welcome, "+username+"!"));
         Random rand = new Random();
-        welcomeLabel.setText(getFirstName(greetings.get(rand.nextInt(3))+username+"!"));
+        welcomeLabel.setText(getFirstName(greetings.get(rand.nextInt(greetings.toArray().length))+username));
     }
 
     public void setModel(MainModel model) {
@@ -62,8 +61,10 @@ public class MainController implements Initializable {
         // information about the user
         getLoggedUser();
 
+
         // Loading movies
         startTimer("Loading movies");
+
         getTopMoviesFromSimilarPeople();
         getTopAverageRatedMoviesUserDidNotSee();
         getTopAverageRatedMovies();
@@ -73,11 +74,11 @@ public class MainController implements Initializable {
     public void getTopMoviesFromSimilarPeople() {
         List<TopMovie> movieTitles = model.getTopMoviesFromSimilarPeople(user);
 
-        int limit = 15;
+        int limit = 30;
         int counter = 0;
 
-
-        ExecutorService executor = Executors.newFixedThreadPool(10);
+        ExecutorService executor = Executors.newCachedThreadPool();
+        //ExecutorService executor = Executors.newFixedThreadPool(10);
 
         for (TopMovie movieTitle : movieTitles) {
             if (counter == limit) {
@@ -163,7 +164,9 @@ public class MainController implements Initializable {
         List<Movie> movieTitles = model.getTopAverageRatedMoviesUserDidNotSee(user);
         int limit = 15;
         int counter = 0;
-        ExecutorService executor = Executors.newFixedThreadPool(5);
+
+        ExecutorService executor = Executors.newCachedThreadPool();
+        //ExecutorService executor = Executors.newFixedThreadPool(5);
         List<Future<Void>> futures = new ArrayList<>(); // creating a list to store the future objects
 
         for (Movie movieTitle : movieTitles) {
@@ -251,7 +254,8 @@ public class MainController implements Initializable {
         int limit = 15;
         int counter = 0;
 
-        ExecutorService executorService = Executors.newFixedThreadPool(10);
+        ExecutorService executor = Executors.newCachedThreadPool();
+        //ExecutorService executorService = Executors.newFixedThreadPool(10);
 
         for (Movie movieTitle : movieTitles) {
             if (counter == limit) {
@@ -279,7 +283,7 @@ public class MainController implements Initializable {
                             "&page=1&include_adult=true";
 
             String finalQuery = query;
-            executorService.execute(() -> {
+            executor.execute(() -> {
                 try {
                     URL url = new URL(uri);
                     HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -332,7 +336,7 @@ public class MainController implements Initializable {
             counter++;
         }
 
-        executorService.shutdown();
+        executor.shutdown();
     }
 
 
