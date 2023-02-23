@@ -15,7 +15,7 @@ public class Main extends Application {
 
     private double xOffset = 0, yOffset = 0;
 
-    private void movableWindow(Scene scene, Stage primaryStage){
+    public void movableWindow(Scene scene, Stage primaryStage){
         scene.setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {

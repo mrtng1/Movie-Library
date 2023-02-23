@@ -2,6 +2,7 @@ package dk.easv.presentation.controller;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dk.easv.Main;
 import dk.easv.entities.*;
 import dk.easv.entities.api.Result;
 import dk.easv.presentation.model.MainModel;
@@ -9,12 +10,19 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import dk.easv.entities.api.TMDB;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -29,9 +37,13 @@ import java.util.concurrent.Future;
 
 public class MainController implements Initializable {
     @FXML
+    private BorderPane rootLayout;
+    @FXML
     private HBox hbTopMoviesFromSimilarPeople, hbTopAverageRatedMoviesUserDidNotSee, hbTopAverageRatedMovies;
     @FXML
     private Label nameLabel, welcomeLabel;
+    @FXML
+    private Button logOut;
     private MainModel model;
     private User user;
     private String username;
@@ -69,12 +81,14 @@ public class MainController implements Initializable {
         getTopAverageRatedMoviesUserDidNotSee();
         getTopAverageRatedMovies();
         stopTimer();
+
+        setLogOut();
     }
 
     public void getTopMoviesFromSimilarPeople() {
         List<TopMovie> movieTitles = model.getTopMoviesFromSimilarPeople(user);
 
-        int limit = 30;
+        int limit = 15;
         int counter = 0;
 
         ExecutorService executor = Executors.newCachedThreadPool();
@@ -366,6 +380,30 @@ public class MainController implements Initializable {
 
     private void stopTimer(){
         System.out.println(timerMsg + " took: " + (System.currentTimeMillis() - timerStartMillis) + "ms");
+    }
+
+    private void setLogOut() {
+        logOut.setOnAction(event -> {
+            Stage stage = (Stage) rootLayout.getScene().getWindow();
+            stage.close();
+
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/presentation/view/loginWindow.fxml"));
+                Parent root = loader.load();
+                Stage newStage = new Stage();
+                Scene scene = new Scene(root);
+
+                Main main = new Main();
+                main.movableWindow(scene, newStage);
+                scene.setFill(Color.TRANSPARENT);
+                newStage.initStyle(StageStyle.TRANSPARENT);
+                newStage.setScene(scene);
+                newStage.show();
+
+            } catch (IOException e){
+                e.printStackTrace();
+            }
+        });
     }
 
     @Override

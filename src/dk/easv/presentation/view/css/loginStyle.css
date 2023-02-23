@@ -19,7 +19,7 @@
 }
 
 .button {
-    -fx-background-color: #F7F9F9;
+    -fx-background-color: transparent;
 }
 
 .button:hover{

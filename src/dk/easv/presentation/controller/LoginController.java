@@ -1,5 +1,6 @@
 package dk.easv.presentation.controller;
 
+import dk.easv.Main;
 import dk.easv.presentation.model.MainModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -11,7 +12,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -34,8 +38,10 @@ public class LoginController implements Initializable {
                 Stage stage = new Stage();
                 Scene scene = new Scene(root);
 
-                //scene.setFill(Color.TRANSPARENT);
-                //stage.initStyle(StageStyle.TRANSPARENT);
+                Main main = new Main();
+                main.movableWindow(scene, stage);
+                scene.setFill(Color.TRANSPARENT);
+                stage.initStyle(StageStyle.TRANSPARENT);
                 stage.setScene(scene);
                 stage.show();
 
