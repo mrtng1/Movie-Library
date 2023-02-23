@@ -20,3 +20,15 @@
     -fx-text-fill:white;
     -fx-font-weight:bold;
 }
+
+#posterButton{
+    -fx-text-fill: transparent;
+}
+
+#posterButton:hover{
+    -fx-opacity: 0.6;
+    -fx-background-color: #f41165;
+    -fx-font-family: Futura;
+    -fx-text-fill:white;
+    -fx-font-weight:bold;
+}

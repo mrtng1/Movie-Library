@@ -5,7 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
@@ -17,25 +18,22 @@
    <left>
       <Pane opacity="0.95" prefHeight="697.0" prefWidth="200.0" style="-fx-background-color: linear-gradient(#AED9F7, #4D7DAF);" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="nameLabel" alignment="CENTER" layoutX="-4.0" layoutY="679.0" opacity="0.7" prefHeight="27.0" prefWidth="209.0" text="uknown user" textFill="WHITE">
+            <Label fx:id="nameLabel" alignment="CENTER" layoutY="679.0" opacity="0.7" prefHeight="27.0" prefWidth="200.0" text="unknown user" textFill="WHITE">
                <font>
                   <Font name="Futura Medium" size="18.0" />
                </font>
             </Label>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="25.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/loginIcon.png" />
+               </image>
+            </ImageView>
          </children>
       </Pane>
    </left>
    <center>
       <VBox prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #F7F9F9#F7F9F9 #F7F9F9#F7F9F9;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="logOut" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" stylesheets="@css/mainStyle.css" text="Log out">
-               <VBox.margin>
-                  <Insets left="810.0" top="10.0" />
-               </VBox.margin>
-               <font>
-                  <Font name="Futura Medium" size="13.0" />
-               </font>
-            </Button>
             <FlowPane prefHeight="60.0" prefWidth="880.0">
                <VBox.margin>
                   <Insets bottom="20.0" top="20.0" />
@@ -52,6 +50,14 @@
                         <Insets left="40.0" />
                      </FlowPane.margin>
                   </Label>
+                  <Button fx:id="logOut" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" stylesheets="@css/mainStyle.css" text="Log out" textFill="#867e81">
+                     <font>
+                        <Font name="Futura Medium" size="13.0" />
+                     </font>
+                     <FlowPane.margin>
+                        <Insets left="320.0" />
+                     </FlowPane.margin>
+                  </Button>
                </children>
             </FlowPane>
             <Separator prefWidth="200.0">
@@ -98,7 +104,4 @@
          </children>
       </VBox>
    </center>
-   <effect>
-      <DropShadow />
-   </effect>
 </BorderPane>

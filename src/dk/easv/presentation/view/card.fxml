@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorCard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="110.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.presentation.controller.MainController">
+<AnchorPane fx:id="anchorCard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="140.0" prefWidth="110.0" stylesheets="@css/mainStyle.css" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.presentation.controller.MainController">
    <children>
       <ImageView fx:id="imgPoster" fitHeight="140.0" fitWidth="110.0" pickOnBounds="true" AnchorPane.topAnchor="0.0">
          <image>
@@ -15,5 +17,10 @@
             <DropShadow />
          </effect>
       </ImageView>
+      <Button fx:id="posterButton" layoutX="9.0" layoutY="22.0" mnemonicParsing="false" style="-fx-background-radius: 10;" stylesheets="@css/mainStyle.css" text="▶️">
+         <font>
+            <Font name="Futura Medium" size="48.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

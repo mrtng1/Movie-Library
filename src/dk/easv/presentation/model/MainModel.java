@@ -8,15 +8,9 @@ import javafx.collections.ObservableList;
 import java.util.List;
 
 public class MainModel {
-
     LogicManager logic = new LogicManager();
     // Models of the data in the view
     private final ObservableList<User>  obsUsers = FXCollections.observableArrayList();
-    private final ObservableList<Movie> obsTopMovieSeen = FXCollections.observableArrayList();
-    private final ObservableList<Movie> obsTopMovieNotSeen = FXCollections.observableArrayList();
-    private final ObservableList<UserSimilarity>  obsSimilarUsers = FXCollections.observableArrayList();
-    private final ObservableList<TopMovie> obsTopMoviesSimilarUsers = FXCollections.observableArrayList();
-
     private final SimpleObjectProperty<User> obsLoggedInUser = new SimpleObjectProperty<>();
 
     public void loadUsers(){
@@ -36,50 +30,12 @@ public class MainModel {
         return logic.getTopAverageRatedMovies(u);
     }
 
-    public void loadData(User user) {
-        obsTopMovieSeen.clear();
-        obsTopMovieSeen.addAll(logic.getTopAverageRatedMovies(user));
-
-        obsTopMovieNotSeen.clear();
-        obsTopMovieNotSeen.addAll(logic.getTopAverageRatedMoviesUserDidNotSee(user));
-
-        obsSimilarUsers.clear();
-        obsSimilarUsers.addAll(logic.getTopSimilarUsers(user));
-
-        obsTopMoviesSimilarUsers.clear();
-        obsTopMoviesSimilarUsers.addAll(logic.getTopMoviesFromSimilarPeople(user));
-    }
-
     public ObservableList<User> getObsUsers() {
         return obsUsers;
     }
 
-    public ObservableList<Movie> getObsTopMovieSeen() {
-        return obsTopMovieSeen;
-    }
-
-    public ObservableList<Movie> getObsTopMovieNotSeen() {
-        return obsTopMovieNotSeen;
-    }
-
-    public ObservableList<UserSimilarity> getObsSimilarUsers() {
-        return obsSimilarUsers;
-    }
-
-    public ObservableList<TopMovie> getObsTopMoviesSimilarUsers() {
-        return obsTopMoviesSimilarUsers;
-    }
-
     public User getObsLoggedInUser() {
         return obsLoggedInUser.get();
-    }
-
-    public SimpleObjectProperty<User> obsLoggedInUserProperty() {
-        return obsLoggedInUser;
-    }
-
-    public void setObsLoggedInUser(User obsLoggedInUser) {
-        this.obsLoggedInUser.set(obsLoggedInUser);
     }
 
     public boolean loginUserFromUsername(String userName) {

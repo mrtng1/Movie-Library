@@ -27,6 +27,7 @@ public class LoginController implements Initializable {
     public void login() {
         model.loadUsers();
         model.loginUserFromUsername(userId.getText());
+
         if (model.getObsLoggedInUser() != null) {
 
             try {
@@ -37,6 +38,7 @@ public class LoginController implements Initializable {
 
                 Main main = new Main();
                 main.movableWindow(scene, stage);
+
                 scene.setFill(Color.TRANSPARENT);
                 stage.initStyle(StageStyle.TRANSPARENT);
                 stage.setScene(scene);
@@ -48,7 +50,6 @@ public class LoginController implements Initializable {
 
                 Stage currentStage = (Stage) userId.getScene().getWindow();
                 currentStage.close();
-
             } catch (IOException e) {
                 e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR, "Could not load App.fxml");
@@ -63,7 +64,6 @@ public class LoginController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         model = new MainModel();
-
         exitButton.setOnAction(event -> Platform.exit());
     }
 }

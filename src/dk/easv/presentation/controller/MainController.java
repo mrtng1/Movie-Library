@@ -73,7 +73,6 @@ public class MainController implements Initializable {
         // information about the user
         getLoggedUser();
 
-
         // Loading movies
         startTimer("Loading movies");
 
@@ -349,10 +348,8 @@ public class MainController implements Initializable {
 
             counter++;
         }
-
         executor.shutdown();
     }
-
 
     public void getLoggedUser () {
         String name = username;
