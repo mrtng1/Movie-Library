@@ -3,7 +3,6 @@ package dk.easv.dataaccess;
 import dk.easv.entities.Movie;
 import dk.easv.entities.Rating;
 import dk.easv.entities.User;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;

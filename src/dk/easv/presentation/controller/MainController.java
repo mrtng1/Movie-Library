@@ -8,6 +8,7 @@ import dk.easv.entities.*;
 import dk.easv.entities.api.Result;
 import dk.easv.presentation.model.MainModel;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,7 +25,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -42,12 +42,21 @@ public class MainController implements Initializable {
     private Label nameLabel, welcomeLabel, loadLabel;
     @FXML private MFXProgressSpinner loadSpinner;
     @FXML
-    private Button logOut;
+    private Button logOutButton;
     private MainModel model;
     private User user;
     private String username;
     private long timerStartMillis = 0;
     private String timerMsg = " ";
+
+    public void setUsername(String username) {
+        this.username = username;
+        nameLabel.setText(username);
+
+        Random rand = new Random();
+        List<String> greetings = Arrays.asList("Welcome, ", "Welcome back, ", "Hey, ", "Hello, ");
+        welcomeLabel.setText(getFirstName(greetings.get(rand.nextInt(greetings.toArray().length))+username));
+    }
 
     private static String getFirstName(String name) {
         int index = name.lastIndexOf(" ");
@@ -57,16 +66,6 @@ public class MainController implements Initializable {
         return name;
     }
 
-
-    public void setUsername(String username) {
-        List<String> greetings = Arrays.asList("Welcome, ", "Welcome back, ", "Hey, ", "Hello, ");
-        this.username = username;
-        nameLabel.setText(username);
-        Random rand = new Random();
-        welcomeLabel.setText(getFirstName(greetings.get(rand.nextInt(greetings.toArray().length))+username));
-    }
-
-
     public void setModel(MainModel model) {
         this.model = model;
 
@@ -75,8 +74,6 @@ public class MainController implements Initializable {
 
         // Loading movies
         startTimer("Loading movies");
-
-
 
         Thread tLoading = new Thread(() -> {
             loadLabel.setVisible(true);
@@ -115,7 +112,7 @@ public class MainController implements Initializable {
         stopTimer();
 
 
-        setLogOut();
+        logOut();
         tLoadingEnd.start();
     }
 
@@ -414,8 +411,8 @@ public class MainController implements Initializable {
         System.out.println(timerMsg + " took: " + (System.currentTimeMillis() - timerStartMillis) + "ms");
     }
 
-    private void setLogOut() {
-        logOut.setOnAction(event -> {
+    private void logOut() {
+        logOutButton.setOnAction(event -> {
             Stage stage = (Stage) rootLayout.getScene().getWindow();
             stage.close();
 

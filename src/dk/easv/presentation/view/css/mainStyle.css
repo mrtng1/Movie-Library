@@ -22,7 +22,7 @@
 }
 
 #posterButton{
-    -fx-text-fill: transparent;
+    -fx-opacity: 0;
 }
 
 #posterButton:hover{
