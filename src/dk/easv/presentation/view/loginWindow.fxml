@@ -11,9 +11,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="850.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.presentation.controller.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="720.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dk.easv.presentation.controller.LoginController">
    <children>
-      <AnchorPane layoutX="322.0" layoutY="120.0" prefHeight="300.0" prefWidth="450.0" style="-fx-background-color: #F7F9F9#F7F9F9;">
+      <AnchorPane layoutX="256.0" layoutY="61.0" prefHeight="300.0" prefWidth="450.0" style="-fx-background-color: #F7F9F9;">
          <children>
             <VBox layoutX="141.0" prefHeight="200.0" prefWidth="300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -33,7 +33,7 @@
                         <Font name="Futura Medium" size="13.0" />
                      </font>
                   </PasswordField>
-                  <Button mnemonicParsing="false" onAction="#login" stylesheets="@css/loginStyle.css" text="LOGIN ">
+                  <Button mnemonicParsing="false" onAction="#login" stylesheets="@css/loginStyle.css" text="LOG IN " textFill="#867e81">
                      <VBox.margin>
                         <Insets left="220.0" top="50.0" />
                      </VBox.margin>
@@ -45,9 +45,9 @@
             </VBox>
          </children>
       </AnchorPane>
-      <AnchorPane layoutX="82.0" layoutY="74.0" prefHeight="375.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(#AED9F7, #4D7DAF); -fx-background-radius: 30;">
+      <AnchorPane layoutX="16.0" layoutY="15.0" prefHeight="375.0" prefWidth="300.0" style="-fx-background-color: linear-gradient(#AED9F7, #4D7DAF); -fx-background-radius: 30;">
          <effect>
-            <DropShadow height="22.5" offsetX="4.0" radius="15.125" width="40.0" />
+            <DropShadow height="37.0" offsetX="4.0" radius="18.75" width="40.0" />
          </effect>
          <children>
             <Button fx:id="exitButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefWidth="29.0" style="-fx-background-color: transparent;" text="x" textFill="#f7f9f9">

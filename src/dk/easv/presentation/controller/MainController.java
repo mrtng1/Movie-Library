@@ -156,10 +156,7 @@ public class MainController implements Initializable {
             }
             counter++;
         }
-
-
     }
-
 
     public void getTopAverageRatedMoviesUserDidNotSee() {
         List<Movie> movieTitles = model.getTopAverageRatedMoviesUserDidNotSee(user);

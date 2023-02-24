@@ -26,7 +26,7 @@
 }
 
 #posterButton:hover{
-    -fx-opacity: 0.6;
+    -fx-opacity: 0.5;
     -fx-background-color: #f41165;
     -fx-font-family: Futura;
     -fx-text-fill:white;
