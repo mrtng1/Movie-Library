@@ -24,6 +24,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -47,21 +48,21 @@ public class MainController implements Initializable {
     private long timerStartMillis = 0;
     private String timerMsg = " ";
 
-    public void setUsername(String username) {
-        this.username = username;
-        nameLabel.setText(username);
-
-        Random rand = new Random();
-        List<String> greetings = Arrays.asList("Welcome, ", "Welcome back, ", "Hey, ", "Hello, ");
-        welcomeLabel.setText(getFirstName(greetings.get(rand.nextInt(greetings.toArray().length))+username));
-    }
-
     private static String getFirstName(String name) {
         int index = name.lastIndexOf(" ");
         if (index > -1) {
             return name.substring(0, index);
         }
         return name;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+        nameLabel.setText(username);
+
+        Random rand = new Random();
+        List<String> greetings = Arrays.asList("Welcome, ", "Welcome back, ", "Hey, ", "Hello, ");
+        welcomeLabel.setText(getFirstName(greetings.get(rand.nextInt(greetings.toArray().length)) + username));
     }
 
     public void setModel(MainModel model) {
@@ -74,21 +75,16 @@ public class MainController implements Initializable {
         startTimer("Loading movies");
 
 
-
-        Thread t1 = new Thread(() -> {
+        ExecutorService executor = Executors.newCachedThreadPool();
+        executor.execute(() -> {
             getTopMoviesFromSimilarPeople();
         });
-        Thread t2 = new Thread(() -> {
+        executor.execute(() -> {
             getTopAverageRatedMoviesUserDidNotSee();
         });
-        Thread t3 = new Thread(() -> {
+        executor.execute(() -> {
             getTopAverageRatedMovies();
         });
-
-
-        t1.start();
-        t2.start();
-        t3.start();
 
 
         stopTimer();
@@ -98,10 +94,10 @@ public class MainController implements Initializable {
     public void getTopMoviesFromSimilarPeople() {
         List<TopMovie> movieTitles = model.getTopMoviesFromSimilarPeople(user);
 
-        int limit = 15;
+        int limit = 30;
         int counter = 0;
 
-        ExecutorService executor = Executors.newCachedThreadPool();
+
         //ExecutorService executor = Executors.newFixedThreadPool(10);
 
         for (TopMovie movieTitle : movieTitles) {
@@ -109,80 +105,77 @@ public class MainController implements Initializable {
                 break;
             }
 
-            executor.execute(() -> {
-                try {
-                    String query = movieTitle.getTitle();
 
-                    int colonIndex = query.lastIndexOf(":");
-                    if (colonIndex != -1) { // If ":" is found in the string
-                        query = query.substring(0, colonIndex).trim(); // Remove text after last ":"
-                    }
-                    String encodedQuery = URLEncoder.encode(query, "UTF-8");
+            try {
+                String query = movieTitle.getTitle();
 
-                    String apiKey="46e91ce5acfdab6d23d26f340d638a2d";
-                    String imagePath="https://image.tmdb.org/t/p/w400/";
-                    String uri =
-                            "https://api.themoviedb.org/3/search/movie?api_key=" + apiKey +
-                                    "&language=en-US&query=" + encodedQuery +
-                                    "&page=1&include_adult=true";
+                int colonIndex = query.lastIndexOf(":");
+                if (colonIndex != -1) { // If ":" is found in the string
+                    query = query.substring(0, colonIndex).trim(); // Remove text after last ":"
+                }
+                String encodedQuery = URLEncoder.encode(query, "UTF-8");
 
-                    URL url = new URL(uri);
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestMethod("GET");
-                    conn.setRequestProperty("Accept", "application/json");
+                String apiKey = "46e91ce5acfdab6d23d26f340d638a2d";
+                String imagePath = "https://image.tmdb.org/t/p/w400/";
+                String uri =
+                        "https://api.themoviedb.org/3/search/movie?api_key=" + apiKey +
+                                "&language=en-US&query=" + encodedQuery +
+                                "&page=1&include_adult=true";
 
-                    if (conn.getResponseCode() != 200) {
-                        throw new RuntimeException("Failed : HTTP error code : "
-                                + conn.getResponseCode());
-                    }
+                URL url = new URL(uri);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setRequestProperty("Accept", "application/json");
 
-                    BufferedReader br = new BufferedReader(new InputStreamReader(
-                            (conn.getInputStream())));
+                if (conn.getResponseCode() != 200) {
+                    throw new RuntimeException("Failed : HTTP error code : "
+                            + conn.getResponseCode());
+                }
 
-                    try(Reader reader = new BufferedReader(new InputStreamReader(
-                            (conn.getInputStream())))){
+                BufferedReader br = new BufferedReader(new InputStreamReader(
+                        (conn.getInputStream())));
 
-                        Gson gson = new GsonBuilder().create();
-                        TMDB p = gson.fromJson(reader, TMDB.class);
+                try (Reader reader = new BufferedReader(new InputStreamReader(
+                        (conn.getInputStream())))) {
 
-                        List<Result> results = p.getResults();
-                        if (results.isEmpty()){
-                            System.out.println("No results found for movie: " + query);
-                        }
-                        else {
-                            Result r = results.isEmpty() ? new Result() : results.get(0);
+                    Gson gson = new GsonBuilder().create();
+                    TMDB p = gson.fromJson(reader, TMDB.class);
 
-                            // Loading movie cards
-                            FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/presentation/view/card.fxml"));
-                            AnchorPane root = loader.load();
+                    List<Result> results = p.getResults();
+                    if (results.isEmpty()) {
+                        System.out.println("No results found for movie: " + query);
+                    } else {
+                        Result r = results.isEmpty() ? null : results.get(0);
 
+                        // Loading movie cards
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/presentation/view/card.fxml"));
+                        AnchorPane root = loader.load();
+                        if (r != null) {
                             ImageView imgPoster = (ImageView) (root.getChildren().get(0));
                             imgPoster.setImage(new Image(imagePath + r.getPoster_path()));
-
-                            // Add the root to the HBox in the JavaFX Application Thread
-                            Platform.runLater(() -> {
-                                hbTopMoviesFromSimilarPeople.getChildren().add(root);
-                            });
                         }
+                        // Add the root to the HBox in the JavaFX Application Thread
+                        Platform.runLater(() -> {
+                            hbTopMoviesFromSimilarPeople.getChildren().add(root);
+                        });
                     }
-                    conn.disconnect();
-
-                } catch (MalformedURLException e) {
-
-                    e.printStackTrace();
-
-                } catch (IOException e) {
-
-                    e.printStackTrace();
                 }
-            });
+                conn.disconnect();
 
+            } catch (MalformedURLException e) {
+
+                e.printStackTrace();
+
+            } catch (IOException e) {
+
+                e.printStackTrace();
+            }
             counter++;
         }
 
-        // Shutdown the thread pool
-        executor.shutdown();
+
     }
+
 
     public void getTopAverageRatedMoviesUserDidNotSee() {
         List<Movie> movieTitles = model.getTopAverageRatedMoviesUserDidNotSee(user);
@@ -230,26 +223,28 @@ public class MainController implements Initializable {
                         TMDB p = gson.fromJson(reader, TMDB.class);
                         List<Result> results = p.getResults();
 
-                        if (results.isEmpty()) {
-                            System.out.println("No results found for movie: " + query);
-                        } else {
-                            Result r = results.isEmpty() ? new Result() : results.get(0);
 
-                            Platform.runLater(() -> {
-                                try {
-                                    FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/presentation/view/card.fxml"));
-                                    AnchorPane root = loader.load();
+                        Result r = results.isEmpty() ? null : results.get(0);
 
-                                    ImageView imgPoster = (ImageView) (root.getChildren().get(0));
-                                    imgPoster.setImage(new Image(imagePath + r.getPoster_path()));
+                        Platform.runLater(() -> {
+                            try {
+                                FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/presentation/view/card.fxml"));
+                                AnchorPane root = loader.load();
 
-                                    hbTopAverageRatedMoviesUserDidNotSee.getChildren().add(root);
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            });
-                        }
+                                if (r!=null && r.getPoster_path()!=null) {
+                                    if(!r.getPoster_path().isEmpty()) {
+                                        ImageView imgPoster = (ImageView) (root.getChildren().get(0));
+                                        imgPoster.setImage(new Image(imagePath + r.getPoster_path()));
+                                    }
+                                } else System.out.println("No results found for movie");
+
+                                hbTopAverageRatedMoviesUserDidNotSee.getChildren().add(root);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
                     }
+
                     conn.disconnect();
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
@@ -299,8 +294,8 @@ public class MainController implements Initializable {
                 throw new RuntimeException(e);
             }
 
-            String apiKey="46e91ce5acfdab6d23d26f340d638a2d";
-            String imagePath="https://image.tmdb.org/t/p/w400/";
+            String apiKey = "46e91ce5acfdab6d23d26f340d638a2d";
+            String imagePath = "https://image.tmdb.org/t/p/w400/";
             String uri =
                     "https://api.themoviedb.org/3/search/movie?api_key=" + apiKey +
                             "&language=en-US&query=" + encodedQuery +
@@ -322,25 +317,26 @@ public class MainController implements Initializable {
                     BufferedReader br = new BufferedReader(new InputStreamReader(
                             (conn.getInputStream())));
 
-                    try(Reader reader = new BufferedReader(new InputStreamReader(
-                            (conn.getInputStream())))){
+                    try (Reader reader = new BufferedReader(new InputStreamReader(
+                            (conn.getInputStream())))) {
 
                         Gson gson = new GsonBuilder().create();
                         TMDB p = gson.fromJson(reader, TMDB.class);
 
                         List<Result> results = p.getResults();
-                        if (results.isEmpty()){
+                        if (results.isEmpty()) {
                             System.out.println("No results found for movie: " + finalQuery);
-                        }
-                        else {
-                            Result r = results.isEmpty() ? new Result() : results.get(0);
+                        } else {
+                            Result r = results.isEmpty() ? null : results.get(0);
 
                             // Loading movie cards
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/presentation/view/card.fxml"));
                             AnchorPane root = loader.load();
 
-                            ImageView imgPoster = (ImageView) (root.getChildren().get(0));
-                            imgPoster.setImage(new Image(imagePath + r.getPoster_path()));
+                            if (r != null) {
+                                ImageView imgPoster = (ImageView) (root.getChildren().get(0));
+                                imgPoster.setImage(new Image(imagePath + r.getPoster_path()));
+                            }
 
                             Platform.runLater(() -> hbTopAverageRatedMovies.getChildren().add(root));
                         }
@@ -362,7 +358,7 @@ public class MainController implements Initializable {
         executor.shutdown();
     }
 
-    public void getLoggedUser () {
+    public void getLoggedUser() {
         String name = username;
         user = null;
 
@@ -381,12 +377,12 @@ public class MainController implements Initializable {
         }
     }
 
-    private void startTimer(String message){
+    private void startTimer(String message) {
         timerStartMillis = System.currentTimeMillis();
         timerMsg = message;
     }
 
-    private void stopTimer(){
+    private void stopTimer() {
         System.out.println(timerMsg + " took: " + (System.currentTimeMillis() - timerStartMillis) + "ms");
     }
 
@@ -408,7 +404,7 @@ public class MainController implements Initializable {
                 newStage.setScene(scene);
                 newStage.show();
 
-            } catch (IOException e){
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
