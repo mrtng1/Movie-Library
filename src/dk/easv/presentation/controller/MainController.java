@@ -39,8 +39,7 @@ public class MainController implements Initializable {
     @FXML
     private HBox hbTopMoviesFromSimilarPeople, hbTopAverageRatedMoviesUserDidNotSee, hbTopAverageRatedMovies;
     @FXML
-    private Label nameLabel, welcomeLabel, loadLabel;
-    @FXML private MFXProgressSpinner loadSpinner;
+    private Label nameLabel, welcomeLabel;
     @FXML
     private Button logOut;
     private MainModel model;
@@ -76,14 +75,6 @@ public class MainController implements Initializable {
         // Loading movies
         startTimer("Loading movies");
 
-
-
-        Thread tLoading = new Thread(() -> {
-            loadLabel.setVisible(true);
-            loadSpinner.setVisible(true);
-        });
-
-
         Thread t1 = new Thread(() -> {
             getTopMoviesFromSimilarPeople();
         });
@@ -94,19 +85,7 @@ public class MainController implements Initializable {
             getTopAverageRatedMovies();
         });
 
-        Thread tLoadingEnd = new Thread(() -> {
-            synchronized (this) {
-                try {
-                    wait(3000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-                loadLabel.setVisible(false);
-                loadSpinner.setVisible(false);
-            }
-        });
 
-        tLoading.start();
         t1.start();
         t2.start();
         t3.start();
@@ -116,7 +95,6 @@ public class MainController implements Initializable {
 
 
         setLogOut();
-        tLoadingEnd.start();
     }
 
     public void getTopMoviesFromSimilarPeople() {
