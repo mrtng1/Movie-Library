@@ -88,6 +88,7 @@ public class MainController implements Initializable {
 
 
         stopTimer();
+        logOut();
 
     }
 
@@ -150,10 +151,12 @@ public class MainController implements Initializable {
                         // Loading movie cards
                         FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/presentation/view/card.fxml"));
                         AnchorPane root = loader.load();
-                        if (r != null) {
-                            ImageView imgPoster = (ImageView) (root.getChildren().get(0));
-                            imgPoster.setImage(new Image(imagePath + r.getPoster_path()));
-                        }
+                        if (r!=null && r.getPoster_path()!=null) {
+                            if(!r.getPoster_path().isEmpty()) {
+                                ImageView imgPoster = (ImageView) (root.getChildren().get(0));
+                                imgPoster.setImage(new Image(imagePath + r.getPoster_path()));
+                            }
+                        } else System.out.println("No results found for movie");
                         // Add the root to the HBox in the JavaFX Application Thread
                         Platform.runLater(() -> {
                             hbTopMoviesFromSimilarPeople.getChildren().add(root);
@@ -333,10 +336,12 @@ public class MainController implements Initializable {
                             FXMLLoader loader = new FXMLLoader(getClass().getResource("/dk/easv/presentation/view/card.fxml"));
                             AnchorPane root = loader.load();
 
-                            if (r != null) {
-                                ImageView imgPoster = (ImageView) (root.getChildren().get(0));
-                                imgPoster.setImage(new Image(imagePath + r.getPoster_path()));
-                            }
+                            if (r!=null && r.getPoster_path()!=null) {
+                                if(!r.getPoster_path().isEmpty()) {
+                                    ImageView imgPoster = (ImageView) (root.getChildren().get(0));
+                                    imgPoster.setImage(new Image(imagePath + r.getPoster_path()));
+                                }
+                            } else System.out.println("No results found for movie");
 
                             Platform.runLater(() -> hbTopAverageRatedMovies.getChildren().add(root));
                         }

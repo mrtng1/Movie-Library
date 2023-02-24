@@ -17,7 +17,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <Button fx:id="posterButton" layoutX="9.0" layoutY="22.0" mnemonicParsing="false" style="-fx-background-radius: 10;" stylesheets="@css/mainStyle.css" text="▶️">
+      <Button fx:id="posterButton" layoutX="9.0" layoutY="22.0" mnemonicParsing="false" style="-fx-background-radius: 10;" stylesheets="@css/mainStyle.css" text="▶">
          <font>
             <Font name="Futura Medium" size="48.0" />
          </font>
