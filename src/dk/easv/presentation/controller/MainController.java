@@ -61,7 +61,7 @@ public class MainController implements Initializable {
         nameLabel.setText(username);
 
         Random rand = new Random();
-        List<String> greetings = Arrays.asList("Welcome, ", "Welcome back, ", "Hey, ", "Hello, ");
+        List<String> greetings = Arrays.asList("Welcome, ", "Welcome back, ", "Hey! ", "Hello, ", "Howdy! ", "Nice to see you, ");
         welcomeLabel.setText(getFirstName(greetings.get(rand.nextInt(greetings.toArray().length)) + username));
     }
 
@@ -71,41 +71,25 @@ public class MainController implements Initializable {
         // information about the user
         getLoggedUser();
 
-        // Loading movies
-        startTimer("Loading movies");
-
-
+        // executing threads
         ExecutorService executor = Executors.newCachedThreadPool();
-        executor.execute(() -> {
-            getTopMoviesFromSimilarPeople();
-        });
-        executor.execute(() -> {
-            getTopAverageRatedMoviesUserDidNotSee();
-        });
-        executor.execute(() -> {
-            getTopAverageRatedMovies();
-        });
+        executor.execute(this::getTopMoviesFromSimilarPeople);
+        executor.execute(this::getTopAverageRatedMoviesUserDidNotSee);
+        executor.execute(this::getTopAverageRatedMovies);
 
-
-        stopTimer();
         logOut();
-
     }
 
     public void getTopMoviesFromSimilarPeople() {
         List<TopMovie> movieTitles = model.getTopMoviesFromSimilarPeople(user);
 
-        int limit = 30;
+        int limit = 15;
         int counter = 0;
-
-
-        //ExecutorService executor = Executors.newFixedThreadPool(10);
 
         for (TopMovie movieTitle : movieTitles) {
             if (counter == limit) {
                 break;
             }
-
 
             try {
                 String query = movieTitle.getTitle();
@@ -132,9 +116,6 @@ public class MainController implements Initializable {
                     throw new RuntimeException("Failed : HTTP error code : "
                             + conn.getResponseCode());
                 }
-
-                BufferedReader br = new BufferedReader(new InputStreamReader(
-                        (conn.getInputStream())));
 
                 try (Reader reader = new BufferedReader(new InputStreamReader(
                         (conn.getInputStream())))) {
@@ -186,7 +167,6 @@ public class MainController implements Initializable {
         int counter = 0;
 
         ExecutorService executor = Executors.newCachedThreadPool();
-        //ExecutorService executor = Executors.newFixedThreadPool(5);
         List<Future<Void>> futures = new ArrayList<>(); // creating a list to store the future objects
 
         for (Movie movieTitle : movieTitles) {
@@ -219,14 +199,10 @@ public class MainController implements Initializable {
                         throw new RuntimeException("Failed : HTTP error code : " + conn.getResponseCode());
                     }
 
-                    BufferedReader br = new BufferedReader(new InputStreamReader((conn.getInputStream())));
-
                     try (Reader reader = new BufferedReader(new InputStreamReader((conn.getInputStream())))) {
                         Gson gson = new GsonBuilder().create();
                         TMDB p = gson.fromJson(reader, TMDB.class);
                         List<Result> results = p.getResults();
-
-
                         Result r = results.isEmpty() ? null : results.get(0);
 
                         Platform.runLater(() -> {
@@ -277,7 +253,6 @@ public class MainController implements Initializable {
         int counter = 0;
 
         ExecutorService executor = Executors.newCachedThreadPool();
-        //ExecutorService executorService = Executors.newFixedThreadPool(10);
 
         for (Movie movieTitle : movieTitles) {
             if (counter == limit) {
@@ -380,15 +355,6 @@ public class MainController implements Initializable {
         } else {
             System.out.println("User not found.");
         }
-    }
-
-    private void startTimer(String message) {
-        timerStartMillis = System.currentTimeMillis();
-        timerMsg = message;
-    }
-
-    private void stopTimer() {
-        System.out.println(timerMsg + " took: " + (System.currentTimeMillis() - timerStartMillis) + "ms");
     }
 
     private void logOut() {
