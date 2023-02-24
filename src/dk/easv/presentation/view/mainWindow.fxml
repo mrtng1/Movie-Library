@@ -50,7 +50,7 @@
                         <Insets left="40.0" />
                      </FlowPane.margin>
                   </Label>
-                  <Button fx:id="logOut" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" stylesheets="@css/mainStyle.css" text="Log out" textFill="#867e81">
+                  <Button fx:id="logOutButton" alignment="CENTER" contentDisplay="TOP" mnemonicParsing="false" stylesheets="@css/mainStyle.css" text="Log out">
                      <font>
                         <Font name="Futura Medium" size="13.0" />
                      </font>
