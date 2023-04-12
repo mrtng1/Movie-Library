@@ -100,7 +100,7 @@ public class MainController implements Initializable {
                 }
                 String encodedQuery = URLEncoder.encode(query, "UTF-8");
 
-                String apiKey = "46e91ce5acfdab6d23d26f340d638a2d";
+                String apiKey = "API KEY";
                 String imagePath = "https://image.tmdb.org/t/p/w400/";
                 String uri =
                         "https://api.themoviedb.org/3/search/movie?api_key=" + apiKey +
@@ -181,7 +181,7 @@ public class MainController implements Initializable {
                     }
                     String encodedQuery = URLEncoder.encode(query, "UTF-8");
 
-                    String apiKey = "46e91ce5acfdab6d23d26f340d638a2d";
+                    String apiKey = "API KEY";
                     String imagePath = "https://image.tmdb.org/t/p/w400/";
                     String uri = "https://api.themoviedb.org/3/search/movie?api_key=" + apiKey +
                             "&language=en-US&query=" + encodedQuery +
@@ -269,7 +269,7 @@ public class MainController implements Initializable {
                 throw new RuntimeException(e);
             }
 
-            String apiKey = "46e91ce5acfdab6d23d26f340d638a2d";
+            String apiKey = "API KEY";
             String imagePath = "https://image.tmdb.org/t/p/w400/";
             String uri =
                     "https://api.themoviedb.org/3/search/movie?api_key=" + apiKey +
