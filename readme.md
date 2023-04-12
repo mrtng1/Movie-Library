@@ -1,5 +1,9 @@
-# Movie Recommendation Example
+# Movie Library
 This is a relatively simple example of a recommendation system for the MRS.
+
+<img width="723" alt="MRS_GUI_login" src="https://user-images.githubusercontent.com/114875545/231404259-57013b70-24e9-4cad-b2b5-a0fa36265193.png">
+<img width="1116" alt="MRS_GUI_main" src="https://user-images.githubusercontent.com/114875545/231404265-88971cb8-5d95-4b94-9b09-e217ccd0280c.png">
+
 
 ## Caching data
 It caches the entire database (of flat files) into a cache in the data access layer, consisting of HashMaps of Users and Movies and lastly it
